@@ -11,11 +11,23 @@ const loadCategories = () => {
 
 // create an display categories
 
-const displayCategories = (data) => {
-    // console.log("displayCategories is Created");
-    console.log(data);
+const displayCategories = (categories) => {
+
+    const categoryContainer = document.getElementById("categories");
+
+    categories.forEach((item) => {
+        console.log(item);
+
+        // create an btn
+        const button = document.createElement("button");
+        button.classList = "btn";
+        button.innerText = item.category;
+
+        // add btn to the category container
+        categoryContainer.append(button);
 
 
+    })
 
 };
 
@@ -23,4 +35,4 @@ const displayCategories = (data) => {
 
 // calling function here
 loadCategories();
-displayCategories();
+// displayCategories();
