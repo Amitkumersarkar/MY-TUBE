@@ -28,6 +28,16 @@ const loadVideos = () => {
 
 };
 
+const loadCategoryVideos = (id) => {
+    // alert(id);
+    // fetch here
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
+        .then((res) => res.json())
+        .then((data) => displayVideos(data.category))
+        .catch((error) => console.log(error))
+
+}
+
 // const cardDemo = {
 //     "category_id": "1001",
 //     "video_id": "aaad",
@@ -51,6 +61,7 @@ const loadVideos = () => {
 
 const displayVideos = (videos) => {
     const videosContainer = document.getElementById('videos');
+    videosContainer.innerHTML = "";
     videos.forEach(videos => {
         console.log(videos);
         const card = document.createElement("div");
@@ -61,7 +72,7 @@ const displayVideos = (videos) => {
       src=${videos.thumbnail}
       class="h-full w-full object-cover"
       alt="Shoes" />
-${videos.others.posted_date?.length == 0 ? "" : ` <span class="absolute right-2 bottom-2 bg-black text-white rounded p-1">${getTimeString(videos.others.posted_date)} </span>`};
+${videos.others.posted_date?.length == 0 ? "" : ` <span class="absolute right-2 bottom-2 bg-black text-white text-xs rounded p-1">${getTimeString(videos.others.posted_date)} </span>`};
   </figure>
   <div class="px-0 py-2 flex gap-2">
     <div>
@@ -93,12 +104,21 @@ const displayCategories = (categories) => {
         console.log(item);
 
         // create an btn
-        const button = document.createElement("button");
-        button.classList = "btn";
-        button.innerText = item.category;
+        const buttonContainer = document.createElement("div");
+        buttonContainer.innerHTML = `
+        <button onclick="loadCategoryVideos(${item.category_id})" class="btn">
+${item.category}
+        </button>
+        `;
+
+
+
+        // button.classList = "btn";
+        // button.innerText = item.category;
+        // button.onclick = () => { alert("Hello.!") };
 
         // add btn to the category container
-        categoryContainer.append(button);
+        categoryContainer.append(buttonContainer);
 
 
     })
