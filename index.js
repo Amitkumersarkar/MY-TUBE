@@ -61,12 +61,14 @@ const displayVideos = (videos) => {
     <h2 class="font-bold"> ${videos.title}</h2>
     <div class="flex items-center gap-2"> 
     <P class="text-gray-400"> ${videos.authors[0].profile_name}</P>
-    <img class="w-5" src="https://img.icons8.com/?size=48&id=FNbnqlDTjR45&format=gif">
+  
+   ${videos.authors[0].verified == true ? ` <img class="w-5" src="https://img.icons8.com/?size=48&id=FNbnqlDTjR45&format=gif">` : "false"}
+   
     </div>
     <P></P>
     </div>
-  </div>
-        `;
+  </div >
+    `;
         videosContainer.append(card);
     });
 };
