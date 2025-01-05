@@ -55,6 +55,28 @@ const loadCategoryVideos = (id) => {
 
 }
 
+const loadDetails = async (videoId) => {
+    console.log(videoId);
+    const uri = `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
+    const res = await fetch(uri);
+    const data = await res.json();
+    displayDetails(data.videos);
+}
+
+const displayDetails = (videos) => {
+    console.log(videos);
+
+    const detailContainer = document.getElementById("modal-content");
+    detailContainer.innerHTML = `
+    <img src=${video.thumbnail}/>
+    <p>${videos.description} </p>
+    `
+    // way-1
+    // document.getElementById("showModalData").click();
+    // way-02
+    document.getElementById("customModal").showModal();
+}
+
 // const cardDemo = {
 //     "category_id": "1001",
 //     "video_id": "aaad",
@@ -119,7 +141,9 @@ ${videos.others.posted_date?.length == 0 ? "" : ` <span class="absolute right-2 
    ${videos.authors[0].verified == true ? ` <img class="w-5" src="https://img.icons8.com/?size=48&id=FNbnqlDTjR45&format=gif">` : ""};
    
     </div>
-    <P></P>
+    <P>
+    <button onclick="loadDetails('${videos.video_id}')" class="btn btn-sm btn-error">details</button>
+    </P>
     </div>
   </div >
     `;
