@@ -62,6 +62,22 @@ const loadCategoryVideos = (id) => {
 const displayVideos = (videos) => {
     const videosContainer = document.getElementById('videos');
     videosContainer.innerHTML = "";
+
+    if (videos.length == 0) {
+        videosContainer.classList.remove("grid");
+        videosContainer.innerHTML = `
+     <div>
+  <img  class="min-h-[200px] flex-col gap-5 justify-center items-center " src="./my-tube-resources/Icon.png" alt="">
+  <h2 class="text-center text-xl font-bold">
+  NO Content Here In This Category
+  </h2>
+     </div>
+     `;
+        return;
+    } else {
+        videosContainer.classList.add("grid");
+    }
+
     videos.forEach(videos => {
         console.log(videos);
         const card = document.createElement("div");
