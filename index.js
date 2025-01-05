@@ -6,6 +6,15 @@ function getTimeString(time) {
     remainingSecond = remainingSecond % 60;
     return `${hour} hour ${minute} minute ${remainingSecond} second ago`;
 }
+
+const removeActiveClass = () => {
+    const button = document.getElementsByClassName("category-btn");
+    console.log(button);
+    for (let btn of buttons) {
+        btn.classList.remove("active");
+    }
+}
+
 console.log(getTimeString(4320));
 // create an loadCategories function
 const loadCategories = () => {
@@ -33,7 +42,15 @@ const loadCategoryVideos = (id) => {
     // fetch here
     fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
         .then((res) => res.json())
-        .then((data) => displayVideos(data.category))
+        .then((data) => {
+            // remove all active class
+            removeActiveClass();
+
+            const activeBtn = document.getElementById(`btn-${id}`);
+            // console.log(activeBtn);
+            activeBtn.classList.add("active");
+            displayVideos(data.category);
+        })
         .catch((error) => console.log(error))
 
 }
@@ -66,8 +83,8 @@ const displayVideos = (videos) => {
     if (videos.length == 0) {
         videosContainer.classList.remove("grid");
         videosContainer.innerHTML = `
-     <div>
-  <img  class="min-h-[200px] flex-col gap-5 justify-center items-center " src="./my-tube-resources/Icon.png" alt="">
+     <div class="min-h-[200px] flex flex-col gap-5 justify-center items-center ">
+  <img src="./my-tube-resources/Icon.png" alt="">
   <h2 class="text-center text-xl font-bold">
   NO Content Here In This Category
   </h2>
@@ -122,7 +139,7 @@ const displayCategories = (categories) => {
         // create an btn
         const buttonContainer = document.createElement("div");
         buttonContainer.innerHTML = `
-        <button onclick="loadCategoryVideos(${item.category_id})" class="btn">
+        <button id="btn-${item.category_id}" onclick="loadCategoryVideos(${item.category_id})" class="btn category-btn">
 ${item.category}
         </button>
         `;
