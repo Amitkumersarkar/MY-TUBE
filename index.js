@@ -9,8 +9,8 @@ function getTimeString(time) {
 
 const removeActiveClass = () => {
     const button = document.getElementsByClassName("category-btn");
-    console.log(button);
-    for (let btn of buttons) {
+    // console.log(button);
+    for (let btn of button) {
         btn.classList.remove("active");
     }
 }
